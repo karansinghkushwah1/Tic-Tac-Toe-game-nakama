@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["ES5"],
+    "module": "none",
+    "strict": true,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "outFile": "build/main.js",
+    "skipLibCheck": true
+  },
+  "include": ["main.ts", "nakama.d.ts"]
+}
