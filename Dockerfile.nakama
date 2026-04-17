@@ -1,0 +1,18 @@
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+COPY server ./server
+RUN npm ci && npm run nakama:build
+
+FROM heroiclabs/nakama:3.22.0
+
+COPY --from=builder /app/server/build /nakama/data/modules
+COPY deploy/render-start.sh /nakama/render-start.sh
+
+USER root
+RUN chmod +x /nakama/render-start.sh
+
+EXPOSE 7350
+
+ENTRYPOINT ["/bin/sh", "/nakama/render-start.sh"]
